@@ -79,6 +79,7 @@ class _GamePageState extends ConsumerState<GamePage> {
         if (question?.answer == index) {
           _featureController = ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              backgroundColor: WestminsterTheme.primary,
               content: Text(Translations.of(context).feedbackGameCorrect),
             ),
           );
@@ -86,6 +87,7 @@ class _GamePageState extends ConsumerState<GamePage> {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              backgroundColor: WestminsterTheme.error,
               content: Text(Translations.of(context).feedbackGameWrong),
             ),
           );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:westminster/routes/game/game_page.dart';
 import 'package:westminster/routes/locations/locations.dart';
+import 'package:westminster/shared/theme.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({super.key});
@@ -14,7 +15,7 @@ class _LocationPageState extends State<LocationPage> {
   Widget build(BuildContext context) {
     final List<Location> locations = Location.getLocations(context);
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -22,7 +23,9 @@ class _LocationPageState extends State<LocationPage> {
           children: [
             GridView.count(
               shrinkWrap: true,
-              crossAxisCount: 4,
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               children: List.generate(locations.length, (index) {
                 final Location location = locations[index];
                 return InkWell(
@@ -30,15 +33,32 @@ class _LocationPageState extends State<LocationPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => GamePage(
-                          location: location,
-                        ),
+                        builder: (BuildContext context) {
+                          return GamePage(location: location);
+                        },
                       ),
                     );
                   },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [Icon(location.icon), Text(location.name)],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: WestminsterTheme.primaryContainer.withAlpha(60),
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          location.icon,
+                          color: WestminsterTheme.onPrimaryContainer,
+                        ),
+                        const SizedBox(height: WestminsterTheme.normalSpacing),
+                        Text(
+                          location.name,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        )
+                      ],
+                    ),
                   ),
                 );
               }),

@@ -14,6 +14,28 @@ class ProfileListPage extends ConsumerStatefulWidget {
 }
 
 class _ProfileListPageState extends ConsumerState<ProfileListPage> {
+  Future<bool?> _confirmRemove() async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Translations.of(context).dialogRemoveProfileTitle),
+          content: Text(Translations.of(context).dialogRemoveProfileBody),
+          actions: <Widget>[
+            TextButton(
+              child: Text(Translations.of(context).buttonRemove),
+              onPressed: () => Navigator.pop(context, true),
+            ),
+            TextButton(
+              child: Text(Translations.of(context).buttonCancel),
+              onPressed: () => Navigator.pop(context, false),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _onInvokeAdd() {
     Navigator.push(
       context,
@@ -23,9 +45,13 @@ class _ProfileListPageState extends ConsumerState<ProfileListPage> {
     );
   }
 
-  void _onInvokeRemove(Profile profile) {
-    final profileNotifier = ref.read(profileListProvider.notifier);
-    profileNotifier.remove(profile);
+  Future<void> _onInvokeRemove(Profile profile) async {
+    final confirm = await _confirmRemove() ?? false;
+
+    if (confirm) {
+      final profileNotifier = ref.read(profileListProvider.notifier);
+      profileNotifier.remove(profile);
+    }
   }
 
   void _onInvokeTap(Profile profile) {

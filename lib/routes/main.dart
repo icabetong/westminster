@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:westminster/components/main_button.dart';
 import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/leaderboard/leaderboard_page.dart';
 import 'package:westminster/routes/locations/locations_page.dart';
@@ -117,30 +118,30 @@ class _MainPageState extends ConsumerState<MainPage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: WestminsterTheme.mediumSpacing),
-            ElevatedButton.icon(
+            MainMenuButton(
               onPressed: _onStartGame,
               icon: const Icon(Icons.military_tech_outlined),
-              label: Text(Translations.of(context).mainMenuStart),
+              text: Text(Translations.of(context).mainMenuStart),
             ),
-            ElevatedButton.icon(
+            MainMenuButton(
               onPressed: _onStartTutorial,
               icon: const Icon(Icons.school_outlined),
-              label: Text(Translations.of(context).mainMenuTutorial),
+              text: Text(Translations.of(context).mainMenuTutorial),
             ),
-            ElevatedButton.icon(
+            MainMenuButton(
               onPressed: _onCheckLeaderboard,
               icon: const Icon(Icons.leaderboard_outlined),
-              label: Text(Translations.of(context).mainMenuLeaderboard),
+              text: Text(Translations.of(context).mainMenuLeaderboard),
             ),
-            ElevatedButton.icon(
+            MainMenuButton(
               onPressed: _onInvokeSettings,
               icon: const Icon(Icons.settings_outlined),
-              label: Text(Translations.of(context).mainMenuSettings),
+              text: Text(Translations.of(context).mainMenuSettings),
             ),
-            ElevatedButton.icon(
+            MainMenuButton(
               onPressed: _onExit,
               icon: const Icon(Icons.exit_to_app_outlined),
-              label: Text(Translations.of(context).mainMenuQuit),
+              text: Text(Translations.of(context).mainMenuQuit),
             )
           ],
         ),
