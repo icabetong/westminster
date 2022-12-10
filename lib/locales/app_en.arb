@@ -1,0 +1,21 @@
+{
+  "appName": "Westminster",
+  "mainMenuStart": "Start",
+  "mainMenuTutorial": "Tutorial",
+  "mainMenuLeaderboard": "Leaderboard",
+  "mainMenuSettings": "Settings",
+  "mainMenuQuit": "Quit",
+  "buttonContinue": "Continue",
+  "buttonExit": "Exit",
+  "buttonCancel": "Cancel",
+  "fieldName": "Name",
+  "fieldAge": "Age",
+  "fieldGender": "Gender",
+  "fieldGenderMale": "Male",
+  "fieldGenderFemale": "Female",
+  "dialogConfirmExitTitle": "Confirm Exit",
+  "dialogConfirmExitBody": "Are you sure you want to exit the game?",
+  "feedbackEmptyName": "Please enter some name",
+  "feedbackEmptyAge": "Please enter some age",
+  "feedbackInvalidAge": "Invalid age"
+}

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:westminster/shared/theme.dart';
 
 class StartPage extends StatelessWidget {
@@ -9,7 +7,12 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(padding: WestminsterTheme.normalPadding, child: Column()),
+      body: Padding(
+        padding: WestminsterTheme.normalPadding,
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }

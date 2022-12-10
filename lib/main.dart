@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:westminster/pages/start_page.dart';
+import 'package:flutter_gen/gen_l10n/translations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:westminster/routes/main.dart';
 
 void main() {
-  runApp(const Westminster());
+  runApp(const ProviderScope(child: Westminster()));
 }
 
 class Westminster extends StatelessWidget {
@@ -15,7 +18,14 @@ class Westminster extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const StartPage(),
+      home: const MainPage(),
+      localizationsDelegates: const [
+        Translations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('en', '')],
     );
   }
 }
