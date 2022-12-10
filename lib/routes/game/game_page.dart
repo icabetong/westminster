@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:westminster/providers/leaderboard.dart';
+import 'package:westminster/providers/profile.dart';
 import 'package:westminster/providers/question.dart';
 import 'package:westminster/routes/game/finished/finished_game_page.dart';
 import 'package:westminster/routes/game/game.dart';
@@ -17,6 +19,8 @@ class GamePage extends ConsumerStatefulWidget {
 }
 
 class _GamePageState extends ConsumerState<GamePage> {
+  ScaffoldFeatureController? _featureController;
+  int score = 0;
   List<Question> questions = [];
   Question? question;
 
@@ -26,6 +30,15 @@ class _GamePageState extends ConsumerState<GamePage> {
     questions = ref.read(questionsProvider);
     if (questions.isNotEmpty) {
       question = questions[0];
+    }
+  }
+
+  void createLog() {
+    final logNotifier = ref.read(leaderboardProvider.notifier);
+    final profile = ref.read(currentProfileProvider);
+    if (profile != null) {
+      final GameLog gameLog = GameLog(profile, score);
+      logNotifier.put(gameLog);
     }
   }
 
@@ -62,12 +75,20 @@ class _GamePageState extends ConsumerState<GamePage> {
     void onCheckResponse(String choice) {
       final index = question?.choices.indexOf(choice) ?? -1;
       if (index >= 0) {
+        _featureController?.close();
         if (question?.answer == index) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Correct!')));
+          _featureController = ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(Translations.of(context).feedbackGameCorrect),
+            ),
+          );
+          setState(() => score++);
         } else {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Wrong!')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(Translations.of(context).feedbackGameWrong),
+            ),
+          );
         }
       }
 
@@ -81,6 +102,8 @@ class _GamePageState extends ConsumerState<GamePage> {
         });
       } else {
         // end the game
+        createLog();
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -100,7 +123,10 @@ class _GamePageState extends ConsumerState<GamePage> {
           Card(
             child: Padding(
               padding: WestminsterTheme.normalPadding,
-              child: Text(question!.question),
+              child: Container(
+                constraints: const BoxConstraints(minHeight: 128.0),
+                child: Text(question!.question),
+              ),
             ),
           ),
           const SizedBox(height: WestminsterTheme.mediumSpacing),
@@ -113,12 +139,19 @@ class _GamePageState extends ConsumerState<GamePage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.location.name), actions: [
-        IconButton(
-          icon: const Icon(Icons.logout_outlined),
-          onPressed: onInvokeConfirm,
-        )
-      ]),
+      appBar: AppBar(
+        title: Text(
+          Translations.of(context).score(score),
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout_outlined),
+            onPressed: onInvokeConfirm,
+          )
+        ],
+      ),
       body: Padding(
         padding: WestminsterTheme.normalPadding,
         child: createQuestionnaire(),

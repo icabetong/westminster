@@ -22,6 +22,9 @@
   "feedbackEmptyAge": "Please enter some age",
   "feedbackInvalidAge": "Invalid age",
   "feedbackNoProfiles": "No Profiles",
+  "feedbackGameCorrect": "Correct!",
+  "feedbackGameWrong": "Wrong!",
+  "feedbackPoints": "Points",
   "locationHome": "Home",
   "locationBus": "Bus",
   "locationSchool": "School",
@@ -31,5 +34,11 @@
   "locationMarket": "Market",
   "locationPark": "Park",
   "locationChurch": "Church",
-  "locationMall": "Mall"
+  "locationMall": "Mall",
+  "score": "{score}\nPoints",
+  "@score": {
+    "placeholders": {
+      "score": {}
+    }
+  }
 }

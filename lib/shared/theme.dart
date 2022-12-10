@@ -10,6 +10,6 @@ class WestminsterTheme {
   static const normalPadding = EdgeInsets.all(16);
 
   static ThemeData getTheme() {
-    return ThemeData.light(useMaterial3: true);
+    return ThemeData.light(useMaterial3: true).copyWith();
   }
 }
