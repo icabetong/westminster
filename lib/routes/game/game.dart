@@ -1,8 +1,12 @@
+import 'package:westminster/shared/tools.dart';
+
 class Question {
-  String questionId;
+  late String questionId;
   String question;
   int answer;
   List<String> choices;
 
-  Question(this.questionId, this.question, this.answer, this.choices);
+  Question(this.question, this.answer, this.choices, {String? questionId}) {
+    this.questionId = questionId ?? randomId();
+  }
 }

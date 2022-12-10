@@ -8,7 +8,7 @@ class PreferenceHandler {
     return await preferences.setString(_currentProfile, profileId);
   }
 
-  static Future<String?> get getCurrentProfile async {
+  static Future<String?> get currentProfile async {
     final preferences = await SharedPreferences.getInstance();
     return preferences.getString(_currentProfile);
   }

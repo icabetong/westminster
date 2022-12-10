@@ -25,8 +25,18 @@ class ProfileListNotifier extends StateNotifier<List<Profile>> {
 }
 
 class CurrentProfileNotifier extends StateNotifier<Profile?> {
-  CurrentProfileNotifier() : super(null);
   final repository = ProfileRepository();
+  CurrentProfileNotifier() : super(null) {
+    onInit();
+  }
+
+  Future<void> onInit() async {
+    final currentId = await PreferenceHandler.currentProfile;
+    final profiles = repository.fetch();
+    final profile = profiles.firstWhere((p) => p.profileId == currentId);
+
+    state = profile;
+  }
 
   change(Profile profile) {
     state = profile;

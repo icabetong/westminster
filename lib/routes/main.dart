@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/leaderboard/leaderboard.dart';
 import 'package:westminster/routes/locations/locations_page.dart';
-import 'package:westminster/routes/profile/profile_editor_page.dart';
 import 'package:westminster/routes/profile/profile_list_page.dart';
 import 'package:westminster/routes/settings/settings_page.dart';
 import 'package:westminster/shared/theme.dart';

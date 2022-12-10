@@ -16,6 +16,8 @@
   "fieldGenderFemale": "Female",
   "dialogConfirmExitTitle": "Confirm Exit",
   "dialogConfirmExitBody": "Are you sure you want to exit the game?",
+  "dialogTerminateGameTitle": "Exit Game?",
+  "dialogTerminateGameBody": "Are you sure you want to exit the game before it's finished?",
   "feedbackEmptyName": "Please enter some name",
   "feedbackEmptyAge": "Please enter some age",
   "feedbackInvalidAge": "Invalid age",

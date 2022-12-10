@@ -3,7 +3,9 @@ import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:westminster/core/database/database.dart';
+import 'package:westminster/routes/leaderboard/leaderboard.dart';
 import 'package:westminster/routes/main.dart';
+import 'package:westminster/routes/settings/settings_page.dart';
 import 'package:westminster/shared/theme.dart';
 
 void main() async {
@@ -27,6 +29,27 @@ class Westminster extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: const [Locale('en', '')],
+      initialRoute: 'home',
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case 'leaderboard':
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (BuildContext context) => const LeaderboardPage(),
+            );
+          case 'settings':
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (BuildContext context) => const SettingsPage(),
+            );
+          case 'home':
+          default:
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (BuildContext context) => const MainPage(),
+            );
+        }
+      },
     );
   }
 }

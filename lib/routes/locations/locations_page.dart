@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:westminster/routes/game/game_page.dart';
 import 'package:westminster/routes/locations/locations.dart';
 
 class LocationPage extends StatefulWidget {
@@ -13,23 +14,36 @@ class _LocationPageState extends State<LocationPage> {
   Widget build(BuildContext context) {
     final List<Location> locations = Location.getLocations(context);
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 5,
-                children: List.generate(locations.length, (index) {
-                  return Column(
+      appBar: AppBar(backgroundColor: Colors.transparent),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 4,
+              children: List.generate(locations.length, (index) {
+                final Location location = locations[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => GamePage(
+                          location: location,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: [Text(locations[index].name)],
-                  );
-                }),
-              ),
-            ],
-          ),
+                    children: [Icon(location.icon), Text(location.name)],
+                  ),
+                );
+              }),
+            ),
+          ],
         ),
       ),
     );
