@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:westminster/providers/player.dart';
+import 'package:westminster/providers/profile.dart';
 import 'package:westminster/shared/theme.dart';
 
 class GamePage extends ConsumerStatefulWidget {
@@ -13,7 +13,7 @@ class GamePage extends ConsumerStatefulWidget {
 class _GamePageState extends ConsumerState<GamePage> {
   @override
   Widget build(BuildContext context) {
-    final player = ref.watch(playerProvider);
+    final player = ref.watch(currentProfileProvider);
 
     return Scaffold(
       body: SafeArea(

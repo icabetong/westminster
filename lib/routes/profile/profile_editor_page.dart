@@ -1,63 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:westminster/providers/player.dart';
-import 'package:westminster/routes/game.dart';
+import 'package:westminster/providers/profile.dart';
+import 'package:westminster/routes/profile/profile.dart';
 import 'package:westminster/shared/theme.dart';
-import 'package:westminster/shared/tools.dart';
 
-enum Gender { male, female }
+class ProfileEditorPage extends ConsumerStatefulWidget {
+  const ProfileEditorPage({super.key, this.profile});
 
-extension GenderExtension on Gender {
-  getLocalization(BuildContext context) {
-    switch (this) {
-      case Gender.male:
-        return Translations.of(context).fieldGenderMale;
-      case Gender.female:
-        return Translations.of(context).fieldGenderFemale;
-    }
-  }
-}
-
-class Player {
-  late String playerId;
-  String name;
-  int age;
-  Gender gender = Gender.male;
-
-  Player(this.name, this.age, {String? playerId, Gender? gender}) {
-    this.playerId = playerId ?? randomId();
-    if (gender != null) {
-      this.gender = gender;
-    }
-  }
-}
-
-class PlayerPage extends ConsumerStatefulWidget {
-  const PlayerPage({super.key});
+  final Profile? profile;
 
   @override
-  ConsumerState<PlayerPage> createState() => _PlayerPageState();
+  ConsumerState<ProfileEditorPage> createState() => _ProfileEditorPageState();
 }
 
-class _PlayerPageState extends ConsumerState<PlayerPage> {
+class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
   final _formKey = GlobalKey<FormState>();
-  String name = "";
-  int age = 0;
+  String _name = "";
+  int _age = 0;
+  Gender _gender = Gender.male;
 
   void _onValidateForm() {
     // returns true if form is valid
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final Player player = Player(name, age);
-      ref.read(playerProvider.notifier).updatePlayer(player);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const GamePage(),
-        ),
+      Profile profile = Profile(
+        _name,
+        _age,
+        gender: _gender,
+        profileId: widget.profile?.profileId,
       );
+      ref.read(profileListProvider.notifier).put(profile);
+      Navigator.pop(context);
     }
   }
 
@@ -94,7 +69,7 @@ class _PlayerPageState extends ConsumerState<PlayerPage> {
                   return null;
                 },
                 onSaved: (value) {
-                  if (value != null) name = value;
+                  if (value != null) _name = value;
                 },
               ),
               const SizedBox(height: WestminsterTheme.normalSpacing),
@@ -127,7 +102,29 @@ class _PlayerPageState extends ConsumerState<PlayerPage> {
                 },
                 onSaved: (value) {
                   if (value != null) {
-                    age = int.parse(value);
+                    _age = int.parse(value);
+                  }
+                },
+              ),
+              Radio<Gender>(
+                value: Gender.male,
+                groupValue: _gender,
+                onChanged: (Gender? gender) {
+                  if (gender != null) {
+                    setState(() {
+                      _gender = gender;
+                    });
+                  }
+                },
+              ),
+              Radio<Gender>(
+                value: Gender.female,
+                groupValue: _gender,
+                onChanged: (Gender? gender) {
+                  if (gender != null) {
+                    setState(() {
+                      _gender = gender;
+                    });
                   }
                 },
               ),

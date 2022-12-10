@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:westminster/core/database/database.dart';
 import 'package:westminster/routes/main.dart';
+import 'package:westminster/shared/theme.dart';
 
-void main() {
+void main() async {
+  await HiveDatabase.init();
   runApp(const ProviderScope(child: Westminster()));
 }
 
@@ -15,9 +18,7 @@ class Westminster extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Westminster',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: WestminsterTheme.getTheme(),
       home: const MainPage(),
       localizationsDelegates: const [
         Translations.delegate,

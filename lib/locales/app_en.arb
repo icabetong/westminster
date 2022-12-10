@@ -5,6 +5,7 @@
   "mainMenuLeaderboard": "Leaderboard",
   "mainMenuSettings": "Settings",
   "mainMenuQuit": "Quit",
+  "pageProfiles": "Profiles",
   "buttonContinue": "Continue",
   "buttonExit": "Exit",
   "buttonCancel": "Cancel",
@@ -17,5 +18,16 @@
   "dialogConfirmExitBody": "Are you sure you want to exit the game?",
   "feedbackEmptyName": "Please enter some name",
   "feedbackEmptyAge": "Please enter some age",
-  "feedbackInvalidAge": "Invalid age"
+  "feedbackInvalidAge": "Invalid age",
+  "feedbackNoProfiles": "No Profiles",
+  "locationHome": "Home",
+  "locationBus": "Bus",
+  "locationSchool": "School",
+  "locationLibrary": "Library",
+  "locationGym": "Gym",
+  "locationHospital": "Hospital",
+  "locationMarket": "Market",
+  "locationPark": "Park",
+  "locationChurch": "Church",
+  "locationMall": "Mall"
 }

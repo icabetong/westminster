@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:westminster/routes/leaderboard.dart';
-import 'package:westminster/routes/player.dart';
-import 'package:westminster/routes/settings.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:westminster/providers/profile.dart';
+import 'package:westminster/routes/leaderboard/leaderboard.dart';
+import 'package:westminster/routes/locations/locations_page.dart';
+import 'package:westminster/routes/profile/profile_editor_page.dart';
+import 'package:westminster/routes/profile/profile_list_page.dart';
+import 'package:westminster/routes/settings/settings_page.dart';
 import 'package:westminster/shared/theme.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  ConsumerState<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends ConsumerState<MainPage> {
   Future<bool?> _onConfirmExit() async {
     return showDialog<bool>(
       context: context,
@@ -45,7 +49,7 @@ class _MainPageState extends State<MainPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => const PlayerPage(),
+        builder: (BuildContext context) => const LocationPage(),
       ),
     );
   }
@@ -78,48 +82,68 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentProfile = ref.watch(currentProfileProvider);
+
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: WestminsterTheme.normalPadding,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                Translations.of(context).appName,
-                style: Theme.of(context).textTheme.headline5,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: WestminsterTheme.mediumSpacing),
-              ElevatedButton.icon(
-                onPressed: _onStartGame,
-                icon: const Icon(Icons.military_tech_outlined),
-                label: Text(Translations.of(context).mainMenuStart),
-              ),
-              ElevatedButton.icon(
-                onPressed: _onStartTutorial,
-                icon: const Icon(Icons.school_outlined),
-                label: Text(Translations.of(context).mainMenuTutorial),
-              ),
-              ElevatedButton.icon(
-                onPressed: _onCheckLeaderboard,
-                icon: const Icon(Icons.leaderboard_outlined),
-                label: Text(Translations.of(context).mainMenuLeaderboard),
-              ),
-              ElevatedButton.icon(
-                onPressed: _onInvokeSettings,
-                icon: const Icon(Icons.settings_outlined),
-                label: Text(Translations.of(context).mainMenuSettings),
-              ),
-              ElevatedButton.icon(
-                onPressed: _onExit,
-                icon: const Icon(Icons.exit_to_app_outlined),
-                label: Text(Translations.of(context).mainMenuQuit),
-              )
-            ],
-          ),
+      appBar: AppBar(
+        actions: [
+          TextButton.icon(
+            icon: const Icon(Icons.person_outline),
+            label: Text(
+              currentProfile != null
+                  ? currentProfile.name
+                  : Translations.of(context).feedbackNoProfiles,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const ProfileListPage(),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+      body: Padding(
+        padding: WestminsterTheme.normalPadding,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              Translations.of(context).appName,
+              style: Theme.of(context).textTheme.headline5,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: WestminsterTheme.mediumSpacing),
+            ElevatedButton.icon(
+              onPressed: _onStartGame,
+              icon: const Icon(Icons.military_tech_outlined),
+              label: Text(Translations.of(context).mainMenuStart),
+            ),
+            ElevatedButton.icon(
+              onPressed: _onStartTutorial,
+              icon: const Icon(Icons.school_outlined),
+              label: Text(Translations.of(context).mainMenuTutorial),
+            ),
+            ElevatedButton.icon(
+              onPressed: _onCheckLeaderboard,
+              icon: const Icon(Icons.leaderboard_outlined),
+              label: Text(Translations.of(context).mainMenuLeaderboard),
+            ),
+            ElevatedButton.icon(
+              onPressed: _onInvokeSettings,
+              icon: const Icon(Icons.settings_outlined),
+              label: Text(Translations.of(context).mainMenuSettings),
+            ),
+            ElevatedButton.icon(
+              onPressed: _onExit,
+              icon: const Icon(Icons.exit_to_app_outlined),
+              label: Text(Translations.of(context).mainMenuQuit),
+            )
+          ],
         ),
       ),
     );
