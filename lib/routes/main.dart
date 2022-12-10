@@ -87,21 +87,26 @@ class _MainPageState extends ConsumerState<MainPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          TextButton.icon(
-            icon: const Icon(Icons.person_outline),
-            label: Text(
-              currentProfile != null
-                  ? currentProfile.name
-                  : Translations.of(context).feedbackNoProfiles,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: WestminsterTheme.normalSpacing,
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const ProfileListPage(),
-                ),
-              );
-            },
+            child: TextButton.icon(
+              icon: const Icon(Icons.person_outline),
+              label: Text(
+                currentProfile != null
+                    ? currentProfile.name
+                    : Translations.of(context).feedbackNoProfiles,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const ProfileListPage(),
+                  ),
+                );
+              },
+            ),
           )
         ],
       ),

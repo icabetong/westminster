@@ -41,6 +41,7 @@ class WestminsterTheme {
       textTheme: const TextTheme(
         titleSmall: TextStyle(color: onPrimaryContainer),
       ),
+      dialogBackgroundColor: surface,
     );
   }
 }
