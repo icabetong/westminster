@@ -2,44 +2,48 @@ import 'package:westminster/core/repository/repository.dart';
 import 'package:westminster/routes/game/game.dart';
 import 'package:westminster/shared/reader.dart';
 
-class QuestionRepository extends Repository<Question> {
-  final reader = DefineReader<Question>();
-  final List<Question> _questions = [];
+class QuestionRepository extends Repository<Chapter> {
+  final reader = DefineReader<Chapter>();
+  final List<Chapter> _chapters = [];
 
-  QuestionRepository() {
-    onInit();
-  }
+  QuestionRepository._();
 
-  Future<void> onInit() async {
+  Future onInit() async {
     final parsedQuestions = await reader.parse(
       DefineReader.questionsPath,
-      Question.fromJson,
+      Chapter.fromJson,
     );
-    _questions.addAll(parsedQuestions);
+    _chapters.addAll(parsedQuestions);
+  }
+
+  static Future<QuestionRepository> init() async {
+    final instance = QuestionRepository._();
+    await instance.onInit();
+    return instance;
   }
 
   @override
-  List<Question> fetch() {
-    return _questions;
+  List<Chapter> fetch() {
+    return _chapters;
   }
 
   @override
-  Future put(Question data) async {
-    final index = _questions
-        .indexWhere((element) => data.questionId == element.questionId);
+  Future put(Chapter data) async {
+    final index = _chapters
+        .indexWhere((element) => data.locationId == element.locationId);
     if (index >= 0) {
-      _questions[index] = data;
+      _chapters[index] = data;
     } else {
-      _questions.add(data);
+      _chapters.add(data);
     }
   }
 
   @override
-  Future remove(Question data) async {
-    final index = _questions
-        .indexWhere((element) => data.questionId == element.questionId);
+  Future remove(Chapter data) async {
+    final index = _chapters
+        .indexWhere((element) => data.locationId == element.locationId);
     if (index >= 0) {
-      _questions.removeAt(index);
+      _chapters.removeAt(index);
     }
   }
 }

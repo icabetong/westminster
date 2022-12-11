@@ -18,6 +18,28 @@ class MainPage extends ConsumerStatefulWidget {
 }
 
 class _MainPageState extends ConsumerState<MainPage> {
+  Future<bool?> _onConfirmCreate() async {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Translations.of(context).dialogNoProfileTitle),
+          content: Text(Translations.of(context).dialogNoProfileBody),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(Translations.of(context).buttonContinue),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(Translations.of(context).buttonCancel),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Future<bool?> _onConfirmExit() async {
     return showDialog<bool>(
       context: context,
@@ -28,15 +50,11 @@ class _MainPageState extends ConsumerState<MainPage> {
           content: Text(Translations.of(context).dialogConfirmExitBody),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
+              onPressed: () => Navigator.pop(context, true),
               child: Text(Translations.of(context).buttonExit),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
+              onPressed: () => Navigator.pop(context, false),
               child: Text(Translations.of(context).buttonCancel),
             )
           ],
@@ -45,13 +63,26 @@ class _MainPageState extends ConsumerState<MainPage> {
     );
   }
 
-  void _onStartGame() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => const LocationPage(),
-      ),
-    );
+  Future<void> _onStartGame() async {
+    final profile = ref.watch(currentProfileProvider);
+    if (profile == null) {
+      final confirmCreate = await _onConfirmCreate() ?? false;
+      if (confirmCreate && mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const ProfileListPage(),
+          ),
+        );
+      }
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const LocationPage(),
+        ),
+      );
+    }
   }
 
   void _onCheckLeaderboard() {

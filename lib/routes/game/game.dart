@@ -9,15 +9,17 @@ class Chapter {
 
   Chapter(this.locationId, this.questions);
 
-  static List<Chapter> fromJson(Map<String, dynamic> json) {
-    return json.entries.map((e) {
-      Iterable<Map<String, dynamic>> questions = e.value;
+  static const _fieldLocationId = "locationId";
+  static const _fieldQuestions = "questions";
 
-      return Chapter(
-        e.key,
-        questions.map((e) => Question.fromJson(e)).toList(),
-      );
-    }).toList();
+  factory Chapter.fromJson(Map<String, dynamic> json) {
+    Iterable questions = json[_fieldQuestions];
+    return Chapter(
+      json[_fieldLocationId] as String,
+      List<Question>.from(questions.map(
+        (question) => Question.fromJson(question),
+      )),
+    );
   }
 }
 

@@ -63,6 +63,7 @@ class _ProfileListPageState extends ConsumerState<ProfileListPage> {
   @override
   Widget build(BuildContext context) {
     final profiles = ref.watch(profileListProvider);
+    final currentProfile = ref.watch(currentProfileProvider);
 
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
@@ -78,13 +79,19 @@ class _ProfileListPageState extends ConsumerState<ProfileListPage> {
               itemCount: profiles.length,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
+                final profile = profiles[index];
+                final isCurrent =
+                    profile.profileId == currentProfile?.profileId;
+
                 return ListTile(
-                  title: Text(profiles[index].name),
+                  title: Text(profile.name),
+                  leading:
+                      isCurrent ? const Icon(Icons.check) : const Icon(null),
                   trailing: IconButton(
                     icon: const Icon(Icons.delete_outline),
-                    onPressed: () => _onInvokeRemove(profiles[index]),
+                    onPressed: () => _onInvokeRemove(profile),
                   ),
-                  onTap: () => _onInvokeTap(profiles[index]),
+                  onTap: () => _onInvokeTap(profile),
                 );
               },
             )

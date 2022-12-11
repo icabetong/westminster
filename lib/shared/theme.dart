@@ -15,6 +15,10 @@ class WestminsterTheme {
   static const onPrimaryContainer = Color(0xffEADDFF);
   static const secondary = Color(0xffCCC2DC);
   static const onSecondary = Color(0xff332D41);
+  static const tertiary = Color(0xffEFB8C8);
+  static const onTertiary = Color(0xff492532);
+  static const tertiaryContainer = Color(0xff633B48);
+  static const onTertiaryContainer = Color(0xffFFD8E4);
   static const error = Color(0xffF2B8B5);
   static const onError = Color(0xff601410);
   static const background = Color(0xff1C1B1F);
@@ -40,6 +44,7 @@ class WestminsterTheme {
       ),
       textTheme: const TextTheme(
         titleSmall: TextStyle(color: onPrimaryContainer),
+        bodySmall: TextStyle(color: onTertiaryContainer),
       ),
       dialogBackgroundColor: surface,
     );

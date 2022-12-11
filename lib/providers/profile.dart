@@ -33,11 +33,14 @@ class CurrentProfileNotifier extends StateNotifier<Profile?> {
   Future<void> onInit() async {
     final currentId = await PreferenceHandler.currentProfile;
     final profiles = repository.fetch();
-    if (profiles.isEmpty) {
-      state = null;
+    if (profiles.isNotEmpty && currentId != null) {
+      final List<Profile> matched =
+          profiles.where((item) => item.profileId == currentId).toList();
+      if (matched.isNotEmpty) {
+        state = profiles[0];
+      }
     } else {
-      final profile = profiles.firstWhere((p) => p.profileId == currentId);
-      state = profile;
+      state = null;
     }
   }
 

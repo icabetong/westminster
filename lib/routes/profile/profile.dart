@@ -14,9 +14,18 @@ class Profile extends HiveObject {
   int age;
   @HiveField(3)
   Gender gender = Gender.male;
+  @HiveField(4)
+  List<String> locations = [];
 
-  Profile(this.name, this.age, {String? profileId, Gender? gender}) {
+  Profile(
+    this.name,
+    this.age, {
+    String? profileId,
+    Gender? gender,
+    List<String>? locations,
+  }) {
     this.profileId = profileId ?? randomId();
+    this.locations = locations ?? [];
     if (gender != null) {
       this.gender = gender;
     }
