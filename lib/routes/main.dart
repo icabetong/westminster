@@ -54,7 +54,6 @@ class _MainPageState extends ConsumerState<MainPage> {
     );
   }
 
-  void _onStartTutorial() {}
   void _onCheckLeaderboard() {
     Navigator.push(
       context,
@@ -127,11 +126,6 @@ class _MainPageState extends ConsumerState<MainPage> {
               onPressed: _onStartGame,
               icon: const Icon(Icons.military_tech_outlined),
               text: Text(Translations.of(context).mainMenuStart),
-            ),
-            MainMenuButton(
-              onPressed: _onStartTutorial,
-              icon: const Icon(Icons.school_outlined),
-              text: Text(Translations.of(context).mainMenuTutorial),
             ),
             MainMenuButton(
               onPressed: _onCheckLeaderboard,

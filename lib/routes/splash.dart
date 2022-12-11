@@ -10,7 +10,7 @@ class StartPage extends StatelessWidget {
       body: Padding(
         padding: WestminsterTheme.normalPadding,
         child: Column(
-          children: [],
+          children: const [],
         ),
       ),
     );

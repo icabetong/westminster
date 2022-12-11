@@ -19,7 +19,6 @@ class Westminster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Westminster',
       theme: WestminsterTheme.getTheme(),
       home: const MainPage(),
       localizationsDelegates: const [
@@ -29,6 +28,7 @@ class Westminster extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: const [Locale('en', '')],
+      onGenerateTitle: (context) => Translations.of(context).appName,
       initialRoute: 'home',
       onGenerateRoute: (settings) {
         switch (settings.name) {
