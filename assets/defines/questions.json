@@ -4,12 +4,42 @@
     "questions": [
       {
         "questionId": "1",
-        "question": "Should we take a break?",
+        "question": "A leader tour needs to be a gregarious person, The world gregarious in the above sentence mean:",
+        "answer": 1, 
+        "choices": [
+          "Well-travelled", "Companionable", "Retiring", "Adaptable"
+        ]
+      },
+      {
+        "questionId": "2",
+        "question": "Far from being upright and moral, his behavior showed him to be fallible, The word fallible in the sentence mean:",
+        "answer": 3, 
+        "choices": [
+          "Weak-kneed", "Immoral", "Capable of falling over", "Capable of error"
+        ]
+      }, 
+      {
+        "questionId": "3",
+        "question": "He was a morose man, so people tended to avoid him, The word morose in this sentence mean:",
+        "answer": 2, 
+        "choices": [
+          "Large", "Cheerful", "Sullen", "Idiotic"
+        ]
+      },
+      {
+        "questionId": "4",
+        "question": "For the little boy, a lolly was tangible, whereas a promise was not, The word tangible in this sentence means",
         "answer": 0, 
         "choices": [
-          "Kitkat",
-          "Snickers",
-          "Hershey's"
+          "Actual", "Untouchable", "Edible", "Basic"
+        ]
+      },
+      {
+        "questionId": "5",
+        "question": "My name is tony and I live in Sydney, Australia My Father is a Literature professor at a university and my mother is an interior designer, Where do Tony and his family live?",
+        "answer": 3, 
+        "choices": [
+          "London", "New York", "South Korea", "Sydney"
         ]
       }
     ]
