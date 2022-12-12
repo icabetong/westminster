@@ -23,6 +23,8 @@
   "dialogRemoveProfileBody": "Are you sure you want to remove this profile? This cannot be recovered later.",
   "dialogNoProfileTitle": "Create a Profile",
   "dialogNoProfileBody": "In order to play, you need to create a profile. Would you like to create one now?",
+  "dialogConfirmLocationRePlayTitle": "Replay this location?",
+  "dialogConfirmLocationRePlayBody": "You already finished this location, would you like to play it again?",
   "feedbackEmptyName": "Please enter some name",
   "feedbackEmptyAge": "Please enter some age",
   "feedbackInvalidAge": "Invalid age",

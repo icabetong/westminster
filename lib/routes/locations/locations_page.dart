@@ -16,12 +16,54 @@ class LocationPage extends ConsumerStatefulWidget {
 class _LocationPageState extends ConsumerState<LocationPage> {
   List<String> finishedLocations = [];
 
+  Future<bool?> _confirmReplay() async {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:
+              Text(Translations.of(context).dialogConfirmLocationRePlayTitle),
+          content:
+              Text(Translations.of(context).dialogConfirmLocationRePlayBody),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(Translations.of(context).buttonContinue),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(Translations.of(context).buttonCancel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
 
     final profile = ref.read(currentProfileProvider);
     if (profile != null) finishedLocations = profile.locations;
+  }
+
+  Future<void> _onInvokeTap(Location location) async {
+    if (finishedLocations.contains(location.locationId)) {
+      final confirm = await _confirmReplay() ?? false;
+      if (!confirm) return;
+    }
+
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+            return GamePage(location: location);
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -50,11 +92,11 @@ class _LocationPageState extends ConsumerState<LocationPage> {
                     finishedLocations.contains(location.locationId);
                 final isUnlocked = isFinished || index == lastLocationIndex + 1;
 
-                debugPrint(finishedLocations.length.toString());
                 return LocationTile(
                   location: location,
                   finished: isFinished,
                   unlocked: isUnlocked,
+                  onTap: () => _onInvokeTap(location),
                 );
               }),
             ),
@@ -66,16 +108,17 @@ class _LocationPageState extends ConsumerState<LocationPage> {
 }
 
 class LocationTile extends StatelessWidget {
-  const LocationTile({
-    super.key,
-    required this.location,
-    required this.finished,
-    required this.unlocked,
-  });
+  const LocationTile(
+      {super.key,
+      required this.location,
+      required this.finished,
+      required this.unlocked,
+      required this.onTap});
 
   final Location location;
   final bool finished;
   final bool unlocked;
+  final Function() onTap;
 
   Color getTileBackgroundColor() {
     Color background = WestminsterTheme.primaryContainer.withAlpha(60);
@@ -88,21 +131,10 @@ class LocationTile extends StatelessWidget {
     }
   }
 
-  void _onInvokeTap(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return GamePage(location: location);
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: unlocked ? () => _onInvokeTap(context) : null,
+      onTap: unlocked ? onTap : null,
       child: Container(
         decoration: BoxDecoration(
           color: getTileBackgroundColor(),

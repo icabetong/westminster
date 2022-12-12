@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:westminster/components/main_button.dart';
 import 'package:westminster/providers/profile.dart';
-import 'package:westminster/routes/leaderboard/leaderboard_page.dart';
 import 'package:westminster/routes/locations/locations_page.dart';
 import 'package:westminster/routes/profile/profile_list_page.dart';
 import 'package:westminster/routes/settings/settings_page.dart';
@@ -85,15 +84,6 @@ class _MainPageState extends ConsumerState<MainPage> {
     }
   }
 
-  void _onCheckLeaderboard() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => const LeaderboardPage(),
-      ),
-    );
-  }
-
   void _onInvokeSettings() {
     Navigator.push(
       context,
@@ -157,11 +147,6 @@ class _MainPageState extends ConsumerState<MainPage> {
               onPressed: _onStartGame,
               icon: const Icon(Icons.military_tech_outlined),
               text: Text(Translations.of(context).mainMenuStart),
-            ),
-            MainMenuButton(
-              onPressed: _onCheckLeaderboard,
-              icon: const Icon(Icons.leaderboard_outlined),
-              text: Text(Translations.of(context).mainMenuLeaderboard),
             ),
             MainMenuButton(
               onPressed: _onInvokeSettings,
