@@ -5,41 +5,266 @@
       {
         "questionId": "1",
         "question": "A leader tour needs to be a gregarious person, The world gregarious in the above sentence mean:",
-        "answer": 1, 
+        "answer": 1,
         "choices": [
-          "Well-travelled", "Companionable", "Retiring", "Adaptable"
+          "Well-travelled",
+          "Companionable",
+          "Retiring",
+          "Adaptable"
         ]
       },
       {
         "questionId": "2",
         "question": "Far from being upright and moral, his behavior showed him to be fallible, The word fallible in the sentence mean:",
-        "answer": 3, 
+        "answer": 3,
         "choices": [
-          "Weak-kneed", "Immoral", "Capable of falling over", "Capable of error"
+          "Weak-kneed",
+          "Immoral",
+          "Capable of falling over",
+          "Capable of error"
         ]
-      }, 
+      }
+    ]
+  },
+  {
+    "locationId": "bus",
+    "questions": [
       {
         "questionId": "3",
         "question": "He was a morose man, so people tended to avoid him, The word morose in this sentence mean:",
-        "answer": 2, 
+        "answer": 2,
         "choices": [
-          "Large", "Cheerful", "Sullen", "Idiotic"
+          "Large",
+          "Cheerful",
+          "Sullen",
+          "Idiotic"
         ]
       },
       {
         "questionId": "4",
         "question": "For the little boy, a lolly was tangible, whereas a promise was not, The word tangible in this sentence means",
-        "answer": 0, 
+        "answer": 0,
         "choices": [
-          "Actual", "Untouchable", "Edible", "Basic"
+          "Actual",
+          "Untouchable",
+          "Edible",
+          "Basic"
         ]
-      },
+      }
+    ]
+  },
+  {
+    "locationId": "school",
+    "questions": [
       {
         "questionId": "5",
         "question": "My name is tony and I live in Sydney, Australia My Father is a Literature professor at a university and my mother is an interior designer, Where do Tony and his family live?",
-        "answer": 3, 
+        "answer": 3,
         "choices": [
-          "London", "New York", "South Korea", "Sydney"
+          "London",
+          "New York",
+          "South Korea",
+          "Sydney"
+        ]
+      },
+      {
+        "questionId": "6",
+        "question": "Tony mother is a/an?",
+        "answer": 2,
+        "choices": [
+          "Fashion Designer",
+          "Landscape Designer",
+          "Interior Designer",
+          "Web Designer"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "library",
+    "questions": [
+      {
+        "questionId": "7",
+        "question": "The Bonds live in London Mr. and Mrs. Bond Have two sons The first son’s name is Michael He is the oldest. The second son’s name is Kevin. He is the youngest. The Bonds live in a house. The house is spacious and has a garden, Where do the Bond family live?",
+        "answer": 3,
+        "choices": [
+          "Toronto",
+          "Ohio",
+          "Dublin",
+          "London"
+        ]
+      },
+      {
+        "questionId": "8",
+        "question": "How many son/s do Mr. and Mrs. Bond have?",
+        "answer": 1,
+        "choices": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "gym",
+    "questions": [
+      {
+        "questionId": "9",
+        "question": "Who is the youngest?",
+        "answer": 3,
+        "choices": [
+          "Josh",
+          "John",
+          "Michael",
+          "Kevin"
+        ]
+      },
+      {
+        "questionId": "10",
+        "question": "Who is the oldest?",
+        "answer": 1,
+        "choices": [
+          "Michael",
+          "Jade",
+          "Kevin",
+          "Luke"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "hospital",
+    "questions": [
+      {
+        "questionId": "11",
+        "question": "I just came back from one of the best vacation ever had! I had so much fun. This summer, I went to Istanbul, Turkey. My best friends, Liam and Joseph, were with ne. We stayed in a hotel on the European side and it was a reasonable price. What city did the friends go to?",
+        "answer": 2,
+        "choices": [
+          "Cario",
+          "Rome",
+          "Istanbul",
+          "New York"
+        ]
+      },
+      {
+        "questionId": "12",
+        "question": "When did they go to Istanbul?",
+        "answer": 2,
+        "choices": [
+          "In Fall",
+          "In Spring",
+          "In Summer",
+          "In Winter"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "market",
+    "questions": [
+      {
+        "questionId": "13",
+        "question": ", I just came back from one of the best vacation ever had! I had so much fun. This summer, I went to Istanbul, Turkey. My best friends, Liam and Joseph, were with ne. We stayed in a hotel on the European side and it was a reasonable price. What city did the friends go to?",
+        "answer": 2,
+        "choices": [
+          "Cario",
+          "Rome",
+          "Istanbul",
+          "New York"
+        ]
+      },
+      {
+        "questionId": "14",
+        "question": "Where was the hotel?",
+        "answer": 3,
+        "choices": [
+          "On the Asian side",
+          "On the Eastern side",
+          "On the Bosporus side",
+          "On the European side"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "park",
+    "questions": [
+      {
+        "questionId": "15",
+        "question": "After Paul woke up, he made the bed, brushed his teeth and had a shower. What did Paul do before shower?",
+        "answer": 0,
+        "choices": [
+          "Brushed his teeth",
+          "Made the bed",
+          "Woke up",
+          "Sleep"
+        ]
+      },
+      {
+        "questionId": "16",
+        "question": "The Loggerhead Sea Turtle is named for its large head and blunt jaw. This huge sea turtle can grow to 800 pounds (though the average turtle is about 200 pounds) and three and a half feet in length. Why is this species name Loggerhead Sea Turtle?",
+        "answer": 0,
+        "choices": [
+          "It has a large head",
+          "It hunts log",
+          "No one knows",
+          "It rest his head on logs"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "church",
+    "questions": [
+      {
+        "questionId": "17",
+        "question": "The word Starve means:",
+        "answer": 0,
+        "choices": [
+          "Brushed his teeth",
+          "Made the bed",
+          "Woke up",
+          "Sleep"
+        ]
+      },
+      {
+        "questionId": "18",
+        "question": "The Loggerhead Sea Turtle is named for its large head and blunt jaw. This huge sea turtle can grow to 800 pounds (though the average turtle is about 200 pounds) and three and a half feet in length. Why is this species name Loggerhead Sea Turtle?",
+        "answer": 0,
+        "choices": [
+          "It has a large head",
+          "It hunts log",
+          "No one knows",
+          "It rest his head on logs"
+        ]
+      }
+    ]
+  },
+  {
+    "locationId": "mall",
+    "questions": [
+      {
+        "questionId": "19",
+        "question": "Which of the following is another name for backpack?",
+        "answer": 3,
+        "choices": [
+          "Wallet",
+          "Cargo",
+          "Pocket",
+          "Rucksack"
+        ]
+      },
+      {
+        "questionId": "20",
+        "question": "The students are in the library to do some research for their essays. Where are the students doing their research?",
+        "answer": 1,
+        "choices": [
+          "At school",
+          "At library",
+          "At cafeteria",
+          "At university"
         ]
       }
     ]
