@@ -1,15 +1,21 @@
 {
-  "appName": "Westminster",
+  "appName": "English Champions",
   "mainMenuStart": "Start",
   "mainMenuTutorial": "Tutorial",
   "mainMenuLeaderboard": "Leaderboard",
   "mainMenuSettings": "Settings",
   "mainMenuQuit": "Quit",
+  "pageCreateProfile": "Create Profile",
   "pageProfiles": "Profiles",
+  "pageGameFinishedPerfect": "Congratulations!",
+  "pageGameFinishedAverage": "Not Bad!",
+  "pageGameFinishedLow": "Better Luck Next Time!",
   "buttonContinue": "Continue",
   "buttonExit": "Exit",
   "buttonCancel": "Cancel",
   "buttonRemove": "Remove",
+  "buttonSave": "Save",
+  "buttonNextLocation": "Proceed to Next Location",
   "fieldName": "Name",
   "fieldAge": "Age",
   "fieldGender": "Gender",
@@ -44,10 +50,19 @@
   "locationPark": "Park",
   "locationChurch": "Church",
   "locationMall": "Mall",
+  "settingsGroupSounds": "Sounds",
+  "settingsMusic": "Music",
+  "settingsEffect": "Sound Effects",
   "score": "{score}\nPoints",
   "@score": {
     "placeholders": {
       "score": {}
+    }
+  },
+  "earnedPoints": "You earned:\n{points}",
+  "@earnedPoints": {
+    "placeholders": {
+      "points": {}
     }
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/profile/profile.dart';
 import 'package:westminster/routes/profile/profile_editor_page.dart';
-import 'package:westminster/shared/theme.dart';
 
 class ProfileListPage extends ConsumerStatefulWidget {
   const ProfileListPage({super.key});
@@ -66,37 +65,24 @@ class _ProfileListPageState extends ConsumerState<ProfileListPage> {
     final currentProfile = ref.watch(currentProfileProvider);
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent),
-      body: Padding(
-        padding: WestminsterTheme.normalPadding,
-        child: Column(
-          children: [
-            Text(
-              Translations.of(context).pageProfiles,
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            ListView.builder(
-              itemCount: profiles.length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                final profile = profiles[index];
-                final isCurrent =
-                    profile.profileId == currentProfile?.profileId;
+      appBar: AppBar(title: Text(Translations.of(context).pageProfiles)),
+      body: ListView.builder(
+        itemCount: profiles.length,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          final profile = profiles[index];
+          final isCurrent = profile.profileId == currentProfile?.profileId;
 
-                return ListTile(
-                  title: Text(profile.name),
-                  leading:
-                      isCurrent ? const Icon(Icons.check) : const Icon(null),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () => _onInvokeRemove(profile),
-                  ),
-                  onTap: () => _onInvokeTap(profile),
-                );
-              },
-            )
-          ],
-        ),
+          return ListTile(
+            selected: isCurrent,
+            title: Text(profile.name),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete_outline),
+              onPressed: () => _onInvokeRemove(profile),
+            ),
+            onTap: () => _onInvokeTap(profile),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onInvokeAdd,

@@ -23,6 +23,8 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_native_splash: ^2.2.16
   moment_dart: ^0.13.0
+  assets_audio_player: ^3.0.6
+  settings_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -44,4 +46,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/music.mp3
+    - assets/correct.mp3
+    - assets/wrong.mp3
     - assets/defines/questions.json
+    

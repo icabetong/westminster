@@ -39,6 +39,9 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(Translations.of(context).pageCreateProfile),
+      ),
       body: Padding(
         padding: WestminsterTheme.normalPadding,
         child: Form(
@@ -106,27 +109,38 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
                   }
                 },
               ),
-              Radio<Gender>(
-                value: Gender.male,
-                groupValue: _gender,
-                onChanged: (Gender? gender) {
-                  if (gender != null) {
-                    setState(() {
-                      _gender = gender;
-                    });
-                  }
-                },
+              const SizedBox(height: WestminsterTheme.mediumSpacing),
+              Row(
+                children: [
+                  Radio<Gender>(
+                    value: Gender.male,
+                    groupValue: _gender,
+                    onChanged: (Gender? gender) {
+                      if (gender != null) {
+                        setState(() {
+                          _gender = gender;
+                        });
+                      }
+                    },
+                  ),
+                  Text(Translations.of(context).fieldGenderMale)
+                ],
               ),
-              Radio<Gender>(
-                value: Gender.female,
-                groupValue: _gender,
-                onChanged: (Gender? gender) {
-                  if (gender != null) {
-                    setState(() {
-                      _gender = gender;
-                    });
-                  }
-                },
+              Row(
+                children: [
+                  Radio<Gender>(
+                    value: Gender.female,
+                    groupValue: _gender,
+                    onChanged: (Gender? gender) {
+                      if (gender != null) {
+                        setState(() {
+                          _gender = gender;
+                        });
+                      }
+                    },
+                  ),
+                  Text(Translations.of(context).fieldGenderFemale)
+                ],
               ),
               const SizedBox(height: WestminsterTheme.normalSpacing),
               ElevatedButton(

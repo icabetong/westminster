@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:westminster/components/main_button.dart';
+import 'package:westminster/providers/music.dart';
 import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/locations/locations_page.dart';
 import 'package:westminster/routes/profile/profile_list_page.dart';
@@ -17,6 +18,13 @@ class MainPage extends ConsumerStatefulWidget {
 }
 
 class _MainPageState extends ConsumerState<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    final musicControl = ref.read(musicControlProvider);
+    musicControl.play();
+  }
+
   Future<bool?> _onConfirmCreate() async {
     return showDialog<bool>(
       context: context,

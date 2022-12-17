@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/game/finished/finished_game_page.dart';
 import 'package:westminster/routes/game/game.dart';
 import 'package:westminster/routes/locations/locations.dart';
+import 'package:westminster/shared/preferences.dart';
 import 'package:westminster/shared/theme.dart';
 
 class GamePage extends ConsumerStatefulWidget {
@@ -19,6 +21,7 @@ class GamePage extends ConsumerStatefulWidget {
 }
 
 class _GamePageState extends ConsumerState<GamePage> {
+  bool isSoundEffectsEnabled = true;
   ScaffoldFeatureController? _featureController;
   int score = 0;
   List<Question> questions = [];
@@ -31,6 +34,7 @@ class _GamePageState extends ConsumerState<GamePage> {
   }
 
   Future<void> onPrepare() async {
+    isSoundEffectsEnabled = await PreferenceHandler.effects;
     final repository = await QuestionRepository.init();
     final locationId = widget.location.locationId;
 
@@ -106,6 +110,10 @@ class _GamePageState extends ConsumerState<GamePage> {
           ),
         );
         setState(() => score++);
+
+        if (isSoundEffectsEnabled) {
+          AssetsAudioPlayer.newPlayer().open(Audio('assets/correct.mp3'));
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -113,6 +121,10 @@ class _GamePageState extends ConsumerState<GamePage> {
             content: Text(Translations.of(context).feedbackGameWrong),
           ),
         );
+
+        if (isSoundEffectsEnabled) {
+          AssetsAudioPlayer.newPlayer().open(Audio('assets/wrong.mp3'));
+        }
       }
     }
 
@@ -131,7 +143,11 @@ class _GamePageState extends ConsumerState<GamePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => const FinishedGamePage(),
+          builder: (BuildContext context) => FinishedGamePage(
+            locationId: widget.location.locationId,
+            totalPoints: questions.length,
+            earnedPoints: score,
+          ),
         ),
       );
     }
