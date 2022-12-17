@@ -7,6 +7,7 @@ import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/locations/locations_page.dart';
 import 'package:westminster/routes/profile/profile_list_page.dart';
 import 'package:westminster/routes/settings/settings_page.dart';
+import 'package:westminster/shared/preferences.dart';
 import 'package:westminster/shared/theme.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 
@@ -21,8 +22,16 @@ class _MainPageState extends ConsumerState<MainPage> {
   @override
   void initState() {
     super.initState();
+    onPrepare();
+  }
+
+  Future<void> onPrepare() async {
     final musicControl = ref.read(musicControlProvider);
-    musicControl.play();
+    final musicEnabled = await PreferenceHandler.music;
+
+    if (!musicControl.isPlaying.value && musicEnabled) {
+      musicControl.play();
+    }
   }
 
   Future<bool?> _onConfirmCreate() async {
