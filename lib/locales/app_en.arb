@@ -51,9 +51,11 @@
   "locationChurch": "Church",
   "locationMall": "Mall",
   "settingsGroupSounds": "Sounds",
-  "settingsMusic": "Music",
-  "settingsEffect": "Sound Effects",
-  "score": "{score}\nPoints",
+  "settingsMusicTitle": "Music",
+  "settingsMusicBody": "Configure whether to turn on or off the music.",
+  "settingsSoundEffectTitle": "Sound Effects",
+  "settingsSoundEffectBody": "Configure whether the sound effects are turned on or off.",
+  "score": "{score} Points",
   "@score": {
     "placeholders": {
       "score": {}

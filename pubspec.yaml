@@ -50,4 +50,16 @@ flutter:
     - assets/correct.mp3
     - assets/wrong.mp3
     - assets/defines/questions.json
+
+  fonts:
+    - family: Merriweather
+      fonts:
+      - asset: assets/fonts/merriweather_regular.ttf
+        weight: 400
+    - family: Karla
+      fonts:
+      - asset: assets/fonts/karla_regular.ttf
+        weight: 400
+      - asset: assets/fonts/karla_medium.ttf
+        weight: 500
     

@@ -104,7 +104,7 @@ class _GamePageState extends ConsumerState<GamePage> {
       if (question?.answer == index) {
         _featureController = ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: WestminsterTheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
             content: Text(Translations.of(context).feedbackGameCorrect),
           ),
         );
@@ -116,7 +116,7 @@ class _GamePageState extends ConsumerState<GamePage> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: WestminsterTheme.error,
+            backgroundColor: Theme.of(context).colorScheme.error,
             content: Text(Translations.of(context).feedbackGameWrong),
           ),
         );
@@ -166,14 +166,32 @@ class _GamePageState extends ConsumerState<GamePage> {
               padding: WestminsterTheme.normalPadding,
               child: Container(
                 constraints: const BoxConstraints(minHeight: 128.0),
-                child: Text(question!.question),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      question!.question,
+                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                            fontFamily: 'Merriweather',
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           const SizedBox(height: WestminsterTheme.mediumSpacing),
           ...question!.choices.map((choice) {
             return OutlinedButton(
-                onPressed: () => onCheckResponse(choice), child: Text(choice));
+              onPressed: () => onCheckResponse(choice),
+              child: Text(
+                choice,
+                style: Theme.of(context).textTheme.button?.copyWith(
+                      fontSize: 18.0,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            );
           })
         ],
       );

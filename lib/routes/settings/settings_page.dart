@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:westminster/providers/music.dart';
 import 'package:westminster/shared/preferences.dart';
-import 'package:westminster/shared/theme.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -61,20 +60,32 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         title: Text(Translations.of(context).mainMenuSettings),
       ),
       body: SettingsList(
+        darkTheme: SettingsThemeData(
+          titleTextColor: Theme.of(context).colorScheme.primary,
+          settingsListBackground: Theme.of(context).scaffoldBackgroundColor,
+        ),
         sections: [
           SettingsSection(
             title: Text(Translations.of(context).settingsGroupSounds),
             tiles: <SettingsTile>[
               SettingsTile.switchTile(
+                activeSwitchColor: Theme.of(context).colorScheme.primary,
                 initialValue: music,
                 onToggle: onToggleMusic,
-                title: Text(Translations.of(context).settingsMusic),
+                title: Text(Translations.of(context).settingsMusicTitle),
+                description: Text(
+                  Translations.of(context).settingsMusicBody,
+                ),
               ),
               SettingsTile.switchTile(
+                activeSwitchColor: Theme.of(context).colorScheme.primary,
                 initialValue: soundEffects,
                 onToggle: onToggleSoundEffects,
                 title: Text(
-                  Translations.of(context).settingsEffect,
+                  Translations.of(context).settingsSoundEffectTitle,
+                ),
+                description: Text(
+                  Translations.of(context).settingsSoundEffectBody,
                 ),
               )
             ],

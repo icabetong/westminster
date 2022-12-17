@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/game/game_page.dart';
 import 'package:westminster/routes/locations/locations.dart';
-import 'package:westminster/shared/theme.dart';
 
 class LocationPage extends ConsumerStatefulWidget {
   const LocationPage({super.key});
@@ -120,14 +119,14 @@ class LocationTile extends StatelessWidget {
   final bool unlocked;
   final Function() onTap;
 
-  Color getTileBackgroundColor() {
-    Color background = WestminsterTheme.primaryContainer.withAlpha(60);
+  Color getTileBackgroundColor(BuildContext context) {
+    Color background = Theme.of(context).colorScheme.tertiaryContainer;
     if (finished) {
       return background;
     } else if (unlocked) {
-      return background.withAlpha(120);
+      return background.withAlpha(180);
     } else {
-      return background.withAlpha(20);
+      return background.withAlpha(60);
     }
   }
 
@@ -137,7 +136,7 @@ class LocationTile extends StatelessWidget {
       onTap: unlocked ? onTap : null,
       child: Container(
         decoration: BoxDecoration(
-          color: getTileBackgroundColor(),
+          color: getTileBackgroundColor(context),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         child: Stack(
@@ -149,7 +148,7 @@ class LocationTile extends StatelessWidget {
                 children: [
                   Icon(
                     unlocked ? location.icon : Icons.lock_outline_rounded,
-                    color: WestminsterTheme.onPrimaryContainer,
+                    color: Theme.of(context).colorScheme.onTertiaryContainer,
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -164,9 +163,9 @@ class LocationTile extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: WestminsterTheme.tertiaryContainer,
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(16),
                           bottomRight: Radius.circular(16),
                         ),
@@ -178,7 +177,9 @@ class LocationTile extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: WestminsterTheme.onTertiaryContainer,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiaryContainer,
                                   ),
                         ),
                       ),
