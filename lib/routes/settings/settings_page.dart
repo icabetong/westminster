@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:westminster/providers/music.dart';
 import 'package:westminster/shared/preferences.dart';
+import 'package:westminster/shared/theme.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});

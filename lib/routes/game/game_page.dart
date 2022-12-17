@@ -71,7 +71,7 @@ class _GamePageState extends ConsumerState<GamePage> {
   }
 
   Future<bool?> onConfirmTerminate() async {
-    await showDialog<bool>(
+    return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -90,7 +90,6 @@ class _GamePageState extends ConsumerState<GamePage> {
         );
       },
     );
-    return null;
   }
 
   Future onInvokeConfirm() async {
