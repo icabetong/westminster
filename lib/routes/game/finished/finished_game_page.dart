@@ -77,7 +77,10 @@ class _FinishedGamePageState extends ConsumerState<FinishedGamePage> {
             Text(
               getRecommendation(),
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20.0),
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
             ),
             const SizedBox(height: WestminsterTheme.mediumSpacing),
             Text(
