@@ -34,6 +34,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   void onToggleMusic(bool? enabled) {
     final musicControl = ref.read(musicControlProvider);
 
+    debugPrint(enabled.toString());
     if (enabled == true) {
       if (!musicControl.isPlaying.value) musicControl.play();
     } else {

@@ -5,11 +5,14 @@
   "mainMenuLeaderboard": "Leaderboard",
   "mainMenuSettings": "Settings",
   "mainMenuQuit": "Quit",
+  "pageLocations": "Locations",
   "pageCreateProfile": "Create Profile",
   "pageProfiles": "Profiles",
   "pageGameFinishedPerfect": "Congratulations!",
   "pageGameFinishedAverage": "Not Bad!",
   "pageGameFinishedLow": "Better Luck Next Time!",
+  "pageGameReadyAssessment": "Recommendation: Ready to Take the Assessment",
+  "pageGameRetakeGame": "Recommendation: Retake the Game",
   "buttonContinue": "Continue",
   "buttonExit": "Exit",
   "buttonCancel": "Cancel",
@@ -61,10 +64,11 @@
       "score": {}
     }
   },
-  "earnedPoints": "You earned:\n{points}",
+  "earnedPoints": "You earned:\n{points}\nout of:\n{total}",
   "@earnedPoints": {
     "placeholders": {
-      "points": {}
+      "points": {},
+      "total": {}
     }
   }
 }

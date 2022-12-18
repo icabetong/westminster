@@ -21,8 +21,8 @@ class GamePage extends ConsumerStatefulWidget {
 }
 
 class _GamePageState extends ConsumerState<GamePage> {
+  late Location currentLocation;
   bool isSoundEffectsEnabled = true;
-  ScaffoldFeatureController? _featureController;
   int score = 0;
   List<Question> questions = [];
   Question? question;
@@ -30,13 +30,14 @@ class _GamePageState extends ConsumerState<GamePage> {
   @override
   void initState() {
     super.initState();
-    onPrepare();
+    currentLocation = widget.location;
+    onPrepare(currentLocation);
   }
 
-  Future<void> onPrepare() async {
+  Future<void> onPrepare(Location location) async {
     isSoundEffectsEnabled = await PreferenceHandler.effects;
     final repository = await QuestionRepository.init();
-    final locationId = widget.location.locationId;
+    final locationId = currentLocation.locationId;
 
     Map<String, List<Question>> locationQuestions = {};
     repository.fetch().forEach((chapter) {
@@ -54,17 +55,8 @@ class _GamePageState extends ConsumerState<GamePage> {
 
   void createLog() {
     final logNotifier = ref.read(leaderboardProvider.notifier);
-    final profileNotifier = ref.read(currentProfileProvider.notifier);
     final profile = ref.read(currentProfileProvider);
     if (profile != null) {
-      final locations = profile.locations;
-      if (!locations.contains(widget.location.locationId)) {
-        locations.add(widget.location.locationId);
-
-        profile.locations = locations;
-        profileNotifier.change(profile);
-      }
-
       final GameLog gameLog = GameLog(profile, score);
       logNotifier.put(gameLog);
     }
@@ -80,7 +72,10 @@ class _GamePageState extends ConsumerState<GamePage> {
           actions: [
             TextButton(
               child: Text(Translations.of(context).buttonExit),
-              onPressed: () => Navigator.pop(context, true),
+              onPressed: () {
+                ref.invalidate(currentProfileProvider);
+                Navigator.pop(context, true);
+              },
             ),
             TextButton(
               child: Text(Translations.of(context).buttonCancel),
@@ -97,15 +92,15 @@ class _GamePageState extends ConsumerState<GamePage> {
     if (confirm && mounted) Navigator.pop(context);
   }
 
-  void onCheckResponse(String choice) {
+  Future<void> onCheckResponse(String choice) async {
     final index = question?.choices.indexOf(choice) ?? -1;
     if (index >= 0) {
-      _featureController?.close();
       if (question?.answer == index) {
-        _featureController = ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.tertiary,
             content: Text(Translations.of(context).feedbackGameCorrect),
+            duration: const Duration(seconds: 2),
           ),
         );
         setState(() => score++);
@@ -118,6 +113,7 @@ class _GamePageState extends ConsumerState<GamePage> {
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.error,
             content: Text(Translations.of(context).feedbackGameWrong),
+            duration: const Duration(seconds: 2),
           ),
         );
 
@@ -127,6 +123,10 @@ class _GamePageState extends ConsumerState<GamePage> {
       }
     }
 
+    final locations = Location.getLocations(context);
+    final currentLocationIndex = locations.indexWhere(
+        (element) => element.locationId == currentLocation.locationId);
+
     final questionIndex =
         questions.indexWhere((q) => q.questionId == question?.questionId);
     if (questionIndex < 0) throw StateError("Question is not in the stack!");
@@ -135,6 +135,28 @@ class _GamePageState extends ConsumerState<GamePage> {
       setState(() {
         question = questions[questionIndex + 1];
       });
+    } else if (currentLocationIndex >= 0 &&
+        currentLocationIndex + 1 < locations.length) {
+      final newLocation = locations[currentLocationIndex + 1];
+
+      final profileNotifier = ref.read(currentProfileProvider.notifier);
+      final profile = ref.read(currentProfileProvider);
+
+      if (profile != null) {
+        final unlockedLocations = profile.locations;
+        if (!unlockedLocations.contains(currentLocation.locationId)) {
+          unlockedLocations.add(currentLocation.locationId);
+
+          profile.locations = unlockedLocations;
+          profileNotifier.change(profile);
+        }
+      }
+
+      setState(() {
+        currentLocation = newLocation;
+      });
+
+      await onPrepare(newLocation);
     } else {
       // end the game
       createLog();
@@ -143,8 +165,6 @@ class _GamePageState extends ConsumerState<GamePage> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => FinishedGamePage(
-            locationId: widget.location.locationId,
-            totalPoints: questions.length,
             earnedPoints: score,
           ),
         ),
@@ -168,7 +188,16 @@ class _GamePageState extends ConsumerState<GamePage> {
                 constraints: const BoxConstraints(minHeight: 128.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      currentLocation.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     Text(
                       question!.question,
                       style: Theme.of(context).textTheme.headline6?.copyWith(

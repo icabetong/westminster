@@ -17,6 +17,7 @@ class MainMenuButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Align(alignment: Alignment.centerLeft, child: icon),
           Align(alignment: Alignment.center, child: text)

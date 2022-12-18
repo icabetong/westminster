@@ -39,14 +39,6 @@ class _LocationPageState extends ConsumerState<LocationPage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    final profile = ref.read(currentProfileProvider);
-    if (profile != null) finishedLocations = profile.locations;
-  }
-
   Future<void> _onInvokeTap(Location location) async {
     if (finishedLocations.contains(location.locationId)) {
       final confirm = await _confirmReplay() ?? false;
@@ -67,6 +59,9 @@ class _LocationPageState extends ConsumerState<LocationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final profile = ref.watch(currentProfileProvider);
+    finishedLocations = profile != null ? profile.locations : [];
+
     final List<Location> locations = Location.getLocations(context);
     final lastLocationId =
         finishedLocations.isNotEmpty ? finishedLocations.last : null;
@@ -74,7 +69,9 @@ class _LocationPageState extends ConsumerState<LocationPage> {
         .lastIndexWhere((element) => element.locationId == lastLocationId);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(Translations.of(context).pageLocations),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -120,7 +117,7 @@ class LocationTile extends StatelessWidget {
   final Function() onTap;
 
   Color getTileBackgroundColor(BuildContext context) {
-    Color background = Theme.of(context).colorScheme.tertiaryContainer;
+    Color background = Theme.of(context).colorScheme.secondary;
     if (finished) {
       return background;
     } else if (unlocked) {
@@ -148,12 +145,14 @@ class LocationTile extends StatelessWidget {
                 children: [
                   Icon(
                     unlocked ? location.icon : Icons.lock_outline_rounded,
-                    color: Theme.of(context).colorScheme.onTertiaryContainer,
+                    color: unlocked
+                        ? Theme.of(context).colorScheme.onSecondary
+                        : Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     location.name,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
               ),

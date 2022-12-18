@@ -41,6 +41,12 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Translations.of(context).pageCreateProfile),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.save_outlined),
+            onPressed: _onValidateForm,
+          ),
+        ],
       ),
       body: Padding(
         padding: WestminsterTheme.normalPadding,
@@ -49,18 +55,19 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
                 decoration: InputDecoration(
                   labelText: Translations.of(context).fieldName,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).dividerColor,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
@@ -81,12 +88,12 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
                   labelText: Translations.of(context).fieldAge,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).dividerColor,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
@@ -115,6 +122,7 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
                   Radio<Gender>(
                     value: Gender.male,
                     groupValue: _gender,
+                    activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (Gender? gender) {
                       if (gender != null) {
                         setState(() {
@@ -131,6 +139,7 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
                   Radio<Gender>(
                     value: Gender.female,
                     groupValue: _gender,
+                    activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (Gender? gender) {
                       if (gender != null) {
                         setState(() {
@@ -142,11 +151,6 @@ class _ProfileEditorPageState extends ConsumerState<ProfileEditorPage> {
                   Text(Translations.of(context).fieldGenderFemale)
                 ],
               ),
-              const SizedBox(height: WestminsterTheme.normalSpacing),
-              ElevatedButton(
-                onPressed: _onValidateForm,
-                child: Text(Translations.of(context).buttonContinue),
-              )
             ],
           ),
         ),

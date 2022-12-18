@@ -1,50 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:westminster/routes/game/game_page.dart';
-import 'package:westminster/routes/locations/locations.dart';
+import 'package:westminster/core/repository/question_repository.dart';
 import 'package:westminster/shared/theme.dart';
 
 class FinishedGamePage extends ConsumerStatefulWidget {
   const FinishedGamePage({
     super.key,
-    required this.locationId,
-    required this.totalPoints,
     required this.earnedPoints,
   });
 
   final int earnedPoints;
-  final int totalPoints;
-  final String locationId;
 
   @override
   ConsumerState<FinishedGamePage> createState() => _FinishedGamePageState();
 }
 
 class _FinishedGamePageState extends ConsumerState<FinishedGamePage> {
+  int totalQuestions = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    onPrepare();
+  }
+
+  Future<void> onPrepare() async {
+    final repository = await QuestionRepository.init();
+    final questions = repository.fetch().map((e) => e.questions).toList();
+    setState(() {
+      totalQuestions = questions.length;
+    });
+  }
+
   String getGreeting() {
-    if (widget.totalPoints == widget.earnedPoints) {
+    if (widget.earnedPoints > totalQuestions * 0.75) {
       return Translations.of(context).pageGameFinishedPerfect;
-    } else if (widget.earnedPoints >= widget.totalPoints / 2 &&
-        widget.earnedPoints < widget.totalPoints) {
+    } else if (widget.earnedPoints <= totalQuestions * 0.75 &&
+        widget.earnedPoints > totalQuestions * 0.3) {
       return Translations.of(context).pageGameFinishedAverage;
     } else {
       return Translations.of(context).pageGameFinishedLow;
     }
   }
 
-  void onProceedToNextLocation() {
-    final locations = Location.getLocations(context);
-    final index = locations
-        .indexWhere((element) => element.locationId == widget.locationId);
-    if (index >= 0) {
-      final nextLocation = locations[index + 1];
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => GamePage(location: nextLocation),
-          ),
-          (route) => false);
+  String getRecommendation() {
+    if (widget.earnedPoints >= totalQuestions * 0.75) {
+      return Translations.of(context).pageGameReadyAssessment;
+    } else {
+      return Translations.of(context).pageGameRetakeGame;
     }
   }
 
@@ -64,19 +68,27 @@ class _FinishedGamePageState extends ConsumerState<FinishedGamePage> {
             Text(
               getGreeting(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displaySmall,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 28.0,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            Text(
+              getRecommendation(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20.0),
             ),
             const SizedBox(height: WestminsterTheme.mediumSpacing),
             Text(
-              Translations.of(context).earnedPoints(widget.earnedPoints),
+              Translations.of(context).earnedPoints(
+                widget.earnedPoints,
+                totalQuestions,
+              ),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline5,
             ),
             const SizedBox(height: WestminsterTheme.mediumSpacing),
-            ElevatedButton(
-              onPressed: onProceedToNextLocation,
-              child: Text(Translations.of(context).buttonNextLocation),
-            ),
             ElevatedButton(
               onPressed: onNavigateToMainMenu,
               child: Text(Translations.of(context).buttonExit),

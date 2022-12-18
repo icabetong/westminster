@@ -31,6 +31,8 @@ class _MainPageState extends ConsumerState<MainPage> {
 
     if (!musicControl.isPlaying.value && musicEnabled) {
       musicControl.play();
+    } else {
+      musicControl.stop();
     }
   }
 
@@ -123,6 +125,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -167,17 +170,18 @@ class _MainPageState extends ConsumerState<MainPage> {
             MainMenuButton(
               onPressed: _onStartGame,
               icon: const Icon(Icons.military_tech_outlined),
-              text: Text(Translations.of(context).mainMenuStart),
+              text: Text(Translations.of(context).mainMenuStart.toUpperCase()),
             ),
             MainMenuButton(
               onPressed: _onInvokeSettings,
               icon: const Icon(Icons.settings_outlined),
-              text: Text(Translations.of(context).mainMenuSettings),
+              text:
+                  Text(Translations.of(context).mainMenuSettings.toUpperCase()),
             ),
             MainMenuButton(
               onPressed: _onExit,
               icon: const Icon(Icons.exit_to_app_outlined),
-              text: Text(Translations.of(context).mainMenuQuit),
+              text: Text(Translations.of(context).mainMenuQuit.toUpperCase()),
             )
           ],
         ),
