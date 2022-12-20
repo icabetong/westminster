@@ -10,7 +10,7 @@ class MainMenuButton extends StatelessWidget {
 
   final Function()? onPressed;
   final Widget? icon;
-  final Widget? text;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,13 @@ class MainMenuButton extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Align(alignment: Alignment.centerLeft, child: icon),
-          Align(alignment: Alignment.center, child: text)
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              text,
+              style: const TextStyle(fontFamily: 'Karla'),
+            ),
+          )
         ],
       ),
     );

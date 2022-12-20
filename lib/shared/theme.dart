@@ -22,6 +22,7 @@ class WestminsterTheme {
   static const background = Color(0xfffffdf7);
 
   static ThemeData getTheme() {
+    final ThemeData base = ThemeData.light(useMaterial3: true);
     return ThemeData(
       fontFamily: 'Karla',
       brightness: Brightness.light,
@@ -43,10 +44,11 @@ class WestminsterTheme {
       ),
       scaffoldBackgroundColor: background,
       dialogBackgroundColor: background,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: primary,
-        elevation: 8,
+        elevation: 4,
         centerTitle: true,
+        shadowColor: base.shadowColor,
       ),
       cardTheme: const CardTheme(color: secondary),
       outlinedButtonTheme: OutlinedButtonThemeData(

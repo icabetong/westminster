@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/translations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:westminster/components/empty_view.dart';
 import 'package:westminster/providers/profile.dart';
 import 'package:westminster/routes/profile/profile.dart';
 import 'package:westminster/routes/profile/profile_editor_page.dart';
@@ -64,26 +65,36 @@ class _ProfileListPageState extends ConsumerState<ProfileListPage> {
     final profiles = ref.watch(profileListProvider);
     final currentProfile = ref.watch(currentProfileProvider);
 
+    Widget getAppropriateChild(bool isEmpty) {
+      return isEmpty
+          ? EmptyView(
+              title: Translations.of(context).emptyProfilesTitle,
+              summary: Translations.of(context).emptyProfilesBody,
+            )
+          : ListView.builder(
+              itemCount: profiles.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                final profile = profiles[index];
+                final isCurrent =
+                    profile.profileId == currentProfile?.profileId;
+
+                return ListTile(
+                  selected: isCurrent,
+                  title: Text(profile.name),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () => _onInvokeRemove(profile),
+                  ),
+                  onTap: () => _onInvokeTap(profile),
+                );
+              },
+            );
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text(Translations.of(context).pageProfiles)),
-      body: ListView.builder(
-        itemCount: profiles.length,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          final profile = profiles[index];
-          final isCurrent = profile.profileId == currentProfile?.profileId;
-
-          return ListTile(
-            selected: isCurrent,
-            title: Text(profile.name),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete_outline),
-              onPressed: () => _onInvokeRemove(profile),
-            ),
-            onTap: () => _onInvokeTap(profile),
-          );
-        },
-      ),
+      body: getAppropriateChild(profiles.isEmpty),
       floatingActionButton: FloatingActionButton(
         onPressed: _onInvokeAdd,
         child: const Icon(Icons.add),
