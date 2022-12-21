@@ -11,7 +11,7 @@
   "pageGameFinishedPerfect": "Congratulations!",
   "pageGameFinishedAverage": "Not Bad!",
   "pageGameFinishedLow": "Better Luck Next Time!",
-  "pageGameReadyAssessment": "You are not Ready to Take the Assessment",
+  "pageGameReadyAssessment": "You are Ready to Take the Assessment",
   "pageGameRetakeGame": "You need to Retake the Game",
   "buttonContinue": "Continue",
   "buttonExit": "Exit",

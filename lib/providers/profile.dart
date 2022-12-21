@@ -33,7 +33,7 @@ class CurrentProfileNotifier extends StateNotifier<Profile?> {
   Future<void> onInit() async {
     final currentId = await PreferenceHandler.currentProfile;
     final profiles = repository.fetch();
-    if (profiles.isNotEmpty && currentId != null) {
+    if (profiles.isNotEmpty && currentId != null && currentId.isNotEmpty) {
       final List<Profile> matched =
           profiles.where((item) => item.profileId == currentId).toList();
       if (matched.isNotEmpty) {
@@ -47,6 +47,11 @@ class CurrentProfileNotifier extends StateNotifier<Profile?> {
   change(Profile profile) {
     state = profile;
     PreferenceHandler.setCurrentProfile(profile.profileId);
+  }
+
+  remove() {
+    state = null;
+    PreferenceHandler.setCurrentProfile(null);
   }
 }
 

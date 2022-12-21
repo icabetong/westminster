@@ -15,9 +15,9 @@ class PreferenceHandler {
     return await preferences.setBool(_effects, enabled);
   }
 
-  static Future<bool> setCurrentProfile(String profileId) async {
+  static Future<bool> setCurrentProfile(String? profileId) async {
     final preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(_currentProfile, profileId);
+    return await preferences.setString(_currentProfile, profileId ?? '');
   }
 
   static Future<String?> get currentProfile async {

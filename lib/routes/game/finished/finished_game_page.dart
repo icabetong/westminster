@@ -34,21 +34,22 @@ class _FinishedGamePageState extends ConsumerState<FinishedGamePage> {
   }
 
   String getGreeting() {
-    if (widget.earnedPoints > totalQuestions * 0.75) {
-      return Translations.of(context).pageGameFinishedPerfect;
-    } else if (widget.earnedPoints <= totalQuestions * 0.75 &&
-        widget.earnedPoints > totalQuestions * 0.3) {
-      return Translations.of(context).pageGameFinishedAverage;
-    } else {
+    final average = totalQuestions * 0.75;
+
+    if (widget.earnedPoints <= average) {
       return Translations.of(context).pageGameFinishedLow;
+    } else {
+      return Translations.of(context).pageGameFinishedPerfect;
     }
   }
 
   String getRecommendation() {
-    if (widget.earnedPoints >= totalQuestions * 0.75) {
-      return Translations.of(context).pageGameReadyAssessment;
-    } else {
+    final average = totalQuestions * 0.75;
+
+    if (widget.earnedPoints <= average) {
       return Translations.of(context).pageGameRetakeGame;
+    } else {
+      return Translations.of(context).pageGameReadyAssessment;
     }
   }
 

@@ -83,7 +83,7 @@ class _MainPageState extends ConsumerState<MainPage> {
   }
 
   Future<void> _onStartGame() async {
-    final profile = ref.watch(currentProfileProvider);
+    final profile = ref.read(currentProfileProvider);
     if (profile == null) {
       final confirmCreate = await _onConfirmCreate() ?? false;
       if (confirmCreate && mounted) {

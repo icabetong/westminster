@@ -51,6 +51,9 @@ class _ProfileListPageState extends ConsumerState<ProfileListPage> {
     if (confirm) {
       final profileNotifier = ref.read(profileListProvider.notifier);
       profileNotifier.remove(profile);
+
+      final currentProfileNotifier = ref.read(currentProfileProvider.notifier);
+      currentProfileNotifier.remove();
     }
   }
 
