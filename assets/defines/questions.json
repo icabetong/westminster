@@ -124,7 +124,7 @@
       {
         "questionId": "10",
         "question": "Who is the oldest?",
-        "answer": 1,
+        "answer": 0,
         "choices": [
           "Michael",
           "Jade",
@@ -139,7 +139,7 @@
     "questions": [
       {
         "questionId": "11",
-        "question": "I just came back from one of the best vacation ever had! I had so much fun. This summer, I went to Istanbul, Turkey. My best friends, Liam and Joseph, were with ne. We stayed in a hotel on the European side and it was a reasonable price. What city did the friends go to?",
+        "question": "I just came back from one of the best vacation ever. I had so much fun. This summer, we went to Istanbul, Turkey. My best friends, Liam and Joseph, were with ne. We stayed in a hotel on the European side and it was a reasonable price. What city did the friends go to?",
         "answer": 2,
         "choices": [
           "Cario",
@@ -166,24 +166,24 @@
     "questions": [
       {
         "questionId": "13",
-        "question": ", I just came back from one of the best vacation ever had! I had so much fun. This summer, I went to Istanbul, Turkey. My best friends, Liam and Joseph, were with ne. We stayed in a hotel on the European side and it was a reasonable price. What city did the friends go to?",
-        "answer": 2,
-        "choices": [
-          "Cario",
-          "Rome",
-          "Istanbul",
-          "New York"
-        ]
-      },
-      {
-        "questionId": "14",
-        "question": "Where was the hotel?",
+        "question": " Where was the hotel?",
         "answer": 3,
         "choices": [
           "On the Asian side",
           "On the Eastern side",
           "On the Bosporus side",
           "On the European side"
+        ]
+      },
+      {
+        "questionId": "14",
+        "question": "Wendy was hungry. She Walked to the kitchen and took out some eggs to prepare omlette. Why did wendy walk into the kitchen?",
+        "answer": 1,
+        "choices": [
+          "She was thirsty",
+          "She was hungry",
+          "She was bored",
+          "She was excited"
         ]
       }
     ]
@@ -221,23 +221,23 @@
       {
         "questionId": "17",
         "question": "The word Starve means:",
-        "answer": 0,
+        "answer": 3,
         "choices": [
-          "Brushed his teeth",
-          "Made the bed",
-          "Woke up",
-          "Sleep"
+          "Grow",
+          "Speed",
+          "Naughty",
+          "Hungry"
         ]
       },
       {
         "questionId": "18",
-        "question": "The Loggerhead Sea Turtle is named for its large head and blunt jaw. This huge sea turtle can grow to 800 pounds (though the average turtle is about 200 pounds) and three and a half feet in length. Why is this species name Loggerhead Sea Turtle?",
+        "question": "Ryan attends school Monday through Friday. Everyday he has several classes to attend: English, French, music, science, math, gym and history. Ryan’s father prepares a large backpack with books and lunch. How many days a week does ryan go to school?",
         "answer": 0,
         "choices": [
-          "It has a large head",
-          "It hunts log",
-          "No one knows",
-          "It rest his head on logs"
+          "5",
+          "6",
+          "7",
+          "4"
         ]
       }
     ]
